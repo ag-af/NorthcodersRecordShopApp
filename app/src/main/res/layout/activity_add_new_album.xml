@@ -11,6 +11,10 @@
         <variable
             name="album"
             type="com.northcoders.northcodersrecordshopapp.model.Album" />
+
+        <variable
+            name="clickHandler"
+            type="com.northcoders.northcodersrecordshopapp.ui.addalbum.AddAlbumClickHandlers" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -86,6 +90,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/add_album"
+            android:onClick="@{clickHandler::onSubmitButtonClicked"
             app:layout_constraintTop_toBottomOf="@id/editStock"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -95,6 +100,7 @@
             android:id="@+id/floatingActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{clickHandler::onBackButtonClicked}"
             android:layout_marginBottom="16dp"
             android:layout_marginStart="16dp"
             android:contentDescription="@string/back_to_main"
