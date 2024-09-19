@@ -14,5 +14,5 @@ public interface AlbumApiService {
     Call<List<Album>> getAllAlbums();
 
     @POST("albums")
-    Call<Album> createAlbum(@Body Album album)
+    Call<Album> createAlbum(@Body Album album);
 }
