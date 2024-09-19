@@ -1,6 +1,7 @@
 package com.northcoders.northcodersrecordshopapp.ui.addalbum;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Spinner;
 
 import androidx.activity.EdgeToEdge;
@@ -31,13 +32,12 @@ public class AddNewAlbumActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this,
                 R.layout.activity_add_new_album);
 
+        binding.setAlbum(album);
+
         MainActivityViewModel viewModel = new ViewModelProvider(this)
                 .get(MainActivityViewModel.class);
 
-        album = new Album();
-        binding.setAlbum(album);
-
-        handlers = new AddAlbumClickHandlers(this, viewModel);
+        handlers = new AddAlbumClickHandlers(this, viewModel, binding);
         binding.setClickHandler(handlers);
     }
 }

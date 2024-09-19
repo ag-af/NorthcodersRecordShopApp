@@ -16,14 +16,14 @@ public class Album extends BaseObservable {
     @SerializedName("genre")
     private Genre genre;
     @SerializedName("releaseYear")
-    private int releaseYear;
+    private Integer releaseYear;
     @SerializedName("price")
-    private double price;
+    private Double price;
     @SerializedName("stock")
-    private int stock;
+    private Integer stock;
     private String imageName;
 
-    public Album(long id, String title, String artist, Genre genre, int releaseYear, double price, int stock) {
+    public Album(long id, String title, String artist, Genre genre, Integer releaseYear, Double price, Integer stock) {
         this.id = id;
         this.title = title;
         this.artist = artist;
@@ -33,7 +33,8 @@ public class Album extends BaseObservable {
         this.stock = stock;
     }
 
-    public Album() {}
+    public Album() {
+    }
 
     @Bindable
     public long getId() {
@@ -76,32 +77,53 @@ public class Album extends BaseObservable {
     }
 
     @Bindable
-    public int getReleaseYear() {
-        return releaseYear;
+    public String getReleaseYear() {
+        if (releaseYear == null) {
+            return null;
+        }
+        return String.valueOf(releaseYear);
     }
 
-    public void setReleaseYear(int releaseYear) {
-        this.releaseYear = releaseYear;
+    public void setReleaseYear(String releaseYear) {
+        try {
+            this.releaseYear = Integer.parseInt(releaseYear);
+        } catch (NumberFormatException e) {
+            this.releaseYear = null;
+        }
         notifyPropertyChanged(BR.releaseYear);
     }
 
     @Bindable
-    public double getPrice() {
-        return price;
+    public String getPrice() {
+        if(price == null || price == 0.0) {
+            return "";
+        }
+        return String.valueOf(price);
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setPrice(String price) {
+        try {
+            this.price = Double.parseDouble(price);
+        } catch (NumberFormatException e) {
+            this.price = null;
+        }
         notifyPropertyChanged(BR.price);
     }
 
     @Bindable
-    public int getStock() {
-        return stock;
+    public String getStock() {
+        if (stock == null) {
+            return null;
+        }
+        return String.valueOf(stock);
     }
 
-    public void setStock(int stock) {
-        this.stock = stock;
+    public void setStock(String stock) {
+        try {
+            this.stock = Integer.parseInt(stock);
+        } catch (NumberFormatException e) {
+            this.stock = null;
+        }
         notifyPropertyChanged(BR.stock);
     }
 
@@ -112,34 +134,5 @@ public class Album extends BaseObservable {
     public void setImageName(String imageName) {
         this.imageName = imageName;
     }
-
-    @Bindable
-    public String getReleaseYearString() {
-        return String.valueOf(releaseYear);
-    }
-
-    public void setReleaseYearString(String releaseYear) {
-        this.releaseYear = Integer.parseInt(releaseYear);
-        notifyPropertyChanged(BR.releaseYear);
-    }
-
-    @Bindable
-    public String getPriceString() {
-        return String.valueOf(price);
-    }
-
-    public void setPriceString(String price) {
-        this.price = Double.parseDouble(price);
-        notifyPropertyChanged(BR.price);
-    }
-
-    @Bindable
-    public String getStockString() {
-        return String.valueOf(stock);
-    }
-
-    public void setStockString(String stock) {
-        this.stock = Integer.parseInt(stock);
-        notifyPropertyChanged(BR.stock);
-    }
 }
+

@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/release_year"
             android:inputType="number"
-            android:text="@={album.releaseYearString}"
+            android:text="@={album.releaseYear}"
             app:layout_constraintTop_toBottomOf="@id/spinnerGenre"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/price"
             android:inputType="numberDecimal"
-            android:text="@={album.priceString}"
+            android:text="@={album.price}"
             app:layout_constraintTop_toBottomOf="@id/editReleaseYear"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/stock"
             android:inputType="number"
-            android:text="@={album.stockString}"
+            android:text="@={album.stock}"
             app:layout_constraintTop_toBottomOf="@id/editPrice"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -90,7 +90,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/add_album"
-            android:onClick="@{clickHandler::onSubmitButtonClicked"
+            android:onClick="@{clickHandler::onSubmitButtonClicked}"
             app:layout_constraintTop_toBottomOf="@id/editStock"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
