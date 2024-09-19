@@ -19,7 +19,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private ArrayList<Album> albums;
+    private List<Album> albums;
     private AlbumAdapter albumAdapter;
     private MainActivityViewModel viewModel;
     private ActivityMainBinding binding;
@@ -27,15 +27,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        EdgeToEdge.enable(this);
-//        setContentView(R.layout.activity_main);
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-//            return insets;
 
         binding = DataBindingUtil.setContentView(this,
                 R.layout.activity_main);
+
+        MainActivityClickHandler clickHandler = new MainActivityClickHandler(this);
+        binding.setClickHandler(clickHandler);
 
         viewModel = new ViewModelProvider(this)
                 .get(MainActivityViewModel.class);
@@ -48,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onChanged(List<Album> albumsFromLiveData) {
-                albums = (ArrayList<Album>) albumsFromLiveData;
+                albums = albumsFromLiveData;
 
                 displayInRecyclerView();
             }
