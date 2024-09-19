@@ -34,9 +34,10 @@ public class AddNewAlbumActivity extends AppCompatActivity {
         MainActivityViewModel viewModel = new ViewModelProvider(this)
                 .get(MainActivityViewModel.class);
 
-        handlers = new AddAlbumClickHandlers(this, viewModel);
-
+        album = new Album();
         binding.setAlbum(album);
+
+        handlers = new AddAlbumClickHandlers(this, viewModel);
         binding.setClickHandler(handlers);
     }
 }
