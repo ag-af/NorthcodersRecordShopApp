@@ -2,6 +2,7 @@ package com.northcoders.northcodersrecordshopapp.model;
 
 import android.app.Application;
 import android.util.Log;
+import android.widget.Toast;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,7 +34,7 @@ public class AlbumRepository {
 
             @Override
             public void onResponse(Call<List<Album>> call, Response<List<Album>> response) {
-                if (response.isSuccessful() & response.body() != null) {
+                if (response.isSuccessful() && response.body() != null) {
                     List<Album> albumList = response.body();
                     mutableLiveData.setValue(albumList);
                 }
@@ -46,5 +47,34 @@ public class AlbumRepository {
             }
         });
         return mutableLiveData;
+    }
+
+    public void addAlbum(Album album) {
+        AlbumApiService albumApiService = RetrofitInstance.getService();
+        Call<Album> call = albumApiService.createAlbum(album);
+
+        call.enqueue(new Callback<Album>() {
+            @Override
+            public void onResponse(Call<Album> call, Response<Album> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Toast.makeText(application.getApplicationContext(),
+                            "Album added to the database",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(application.getApplicationContext(),
+                            "Failed to add album to the database",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Album> call, Throwable throwable) {
+               Toast.makeText(application.getApplicationContext(),
+                       "Unable to add album to the database",
+                       Toast.LENGTH_SHORT).show();
+                        Log.e("POST REQ", throwable.getMessage());
+
+            }
+        });
     }
 }
