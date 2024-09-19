@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    tools:context=".ui.addalbum.AddNewAlbumActivity">
+
+    <data>
+        <variable
+            name="album"
+            type="com.northcoders.northcodersrecordshopapp.model.Album" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <EditText
+            android:id="@+id/editTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Album Title"
+            android:text="@={album.title}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <EditText
+            android:id="@+id/editArtist"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Artist Name"
+            android:text="@={album.artist}"
+            app:layout_constraintTop_toBottomOf="@id/editTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Spinner
+            android:id="@+id/spinnerGenre"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Genre"
+            android:entries="@array/genre_array"
+            app:layout_constraintTop_toBottomOf="@id/editArtist"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <EditText
+            android:id="@+id/editReleaseYear"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Release Year"
+            android:inputType="number"
+            android:text="@={album.releaseYearString}"
+            app:layout_constraintTop_toBottomOf="@id/spinnerGenre"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <EditText
+            android:id="@+id/editPrice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Price"
+            android:inputType="numberDecimal"
+            android:text="@={album.priceString}"
+            app:layout_constraintTop_toBottomOf="@id/editReleaseYear"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <EditText
+            android:id="@+id/editStock"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Stock"
+            android:inputType="number"
+            android:text="@={album.stockString}"
+            app:layout_constraintTop_toBottomOf="@id/editPrice"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
+            android:id="@+id/submitAlbumButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Album"
+            app:layout_constraintTop_toBottomOf="@id/editStock"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">NorthcodersRecordShopApp</string>
+
+    <string-array name="genre_array">
+        <item>CLASSICAL</item>
+        <item>JAZZ</item>
+        <item>BLUES</item>
+        <item>BOSSA_NOVA</item>
+        <item>POP</item>
+        <item>ROCK</item>
+        <item>HIPHOP</item>
+        <item>CHRISTMAS</item>
+        <item>ELECTRONIC</item>
+        <item>GOSPEL</item>
+        <item>MPB</item>
+        <item>REGGAE</item>
+        <item>SAMBA</item>
+    </string-array>
 </resources>

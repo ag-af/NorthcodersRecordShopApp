@@ -112,4 +112,34 @@ public class Album extends BaseObservable {
     public void setImageName(String imageName) {
         this.imageName = imageName;
     }
+
+    @Bindable
+    public String getReleaseYearString() {
+        return String.valueOf(releaseYear);
+    }
+
+    public void setReleaseYearString(String releaseYear) {
+        this.releaseYear = Integer.parseInt(releaseYear);
+        notifyPropertyChanged(BR.releaseYear);
+    }
+
+    @Bindable
+    public String getPriceString() {
+        return String.valueOf(price);
+    }
+
+    public void setPriceString(String price) {
+        this.price = Double.parseDouble(price);
+        notifyPropertyChanged(BR.price);
+    }
+
+    @Bindable
+    public String getStockString() {
+        return String.valueOf(stock);
+    }
+
+    public void setStockString(String stock) {
+        this.stock = Integer.parseInt(stock);
+        notifyPropertyChanged(BR.stock);
+    }
 }
