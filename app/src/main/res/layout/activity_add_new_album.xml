@@ -22,7 +22,7 @@
             android:id="@+id/editTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Album Title"
+            android:hint="@string/album_title"
             android:text="@={album.title}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +32,7 @@
             android:id="@+id/editArtist"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Artist Name"
+            android:hint="@string/artist_name"
             android:text="@={album.artist}"
             app:layout_constraintTop_toBottomOf="@id/editTitle"
             app:layout_constraintStart_toStartOf="parent"
@@ -42,7 +42,7 @@
             android:id="@+id/spinnerGenre"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Genre"
+            android:hint="@string/genre"
             android:entries="@array/genre_array"
             app:layout_constraintTop_toBottomOf="@id/editArtist"
             app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +52,7 @@
             android:id="@+id/editReleaseYear"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Release Year"
+            android:hint="@string/release_year"
             android:inputType="number"
             android:text="@={album.releaseYearString}"
             app:layout_constraintTop_toBottomOf="@id/spinnerGenre"
@@ -63,7 +63,7 @@
             android:id="@+id/editPrice"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Price"
+            android:hint="@string/price"
             android:inputType="numberDecimal"
             android:text="@={album.priceString}"
             app:layout_constraintTop_toBottomOf="@id/editReleaseYear"
@@ -74,7 +74,7 @@
             android:id="@+id/editStock"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Stock"
+            android:hint="@string/stock"
             android:inputType="number"
             android:text="@={album.stockString}"
             app:layout_constraintTop_toBottomOf="@id/editPrice"
@@ -85,10 +85,22 @@
             android:id="@+id/submitAlbumButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add Album"
+            android:text="@string/add_album"
             app:layout_constraintTop_toBottomOf="@id/editStock"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp" />
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="16dp"
+            android:contentDescription="@string/back_to_main"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:src="@android:drawable/ic_menu_revert" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
