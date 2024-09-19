@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.northcoders.northcodersrecordshopapp.R;
 import com.northcoders.northcodersrecordshopapp.databinding.AlbumItemBinding;
 import com.northcoders.northcodersrecordshopapp.model.Album;
 
@@ -42,8 +43,17 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHol
     @Override
     public void onBindViewHolder(@NonNull AlbumAdapter.AlbumViewHolder holder, int position) {
         Album album = albumList.get(position);
-
         holder.albumItemBinding.setAlbum(album);
+
+        if (album.getTitle().equalsIgnoreCase("How Deep Is Your Love")) {
+            holder.albumItemBinding.albumArtwork.setImageResource(R.drawable.how_deep_is_your_love);
+        } else if (album.getTitle().equalsIgnoreCase("Don't Dream It's Over")) {
+            holder.albumItemBinding.albumArtwork.setImageResource(R.drawable.dont_dream_its_over);
+        } else if (album.getTitle().equalsIgnoreCase("All Out of Love")) {
+            holder.albumItemBinding.albumArtwork.setImageResource(R.drawable.all_out_of_love);
+        } else {
+            holder.albumItemBinding.albumArtwork.setImageResource(R.drawable.album_icon);
+        }
     }
 
     @Override

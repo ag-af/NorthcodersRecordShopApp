@@ -21,6 +21,7 @@ public class Album extends BaseObservable {
     private double price;
     @SerializedName("stock")
     private int stock;
+    private String imageName;
 
     public Album(long id, String title, String artist, Genre genre, int releaseYear, double price, int stock) {
         this.id = id;
@@ -102,5 +103,13 @@ public class Album extends BaseObservable {
     public void setStock(int stock) {
         this.stock = stock;
         notifyPropertyChanged(BR.stock);
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 }
