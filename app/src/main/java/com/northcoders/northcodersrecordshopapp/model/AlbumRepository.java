@@ -94,7 +94,7 @@ public class AlbumRepository {
             @Override
             public void onFailure(Call<Album> call, Throwable throwable) {
                 Toast.makeText(application.getApplicationContext(),
-                        "Failed to update album",
+                        "Failed to update album: " + throwable.getMessage(),
                         Toast.LENGTH_SHORT).show();
 
                 Log.e("PUT REQUEST", throwable.getMessage());
@@ -111,14 +111,14 @@ public class AlbumRepository {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 Toast.makeText(application.getApplicationContext(),
-                        "Album deleted succesfully",
+                        "Album deleted successfully",
                         Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable throwable) {
                 Toast.makeText(application.getApplicationContext(),
-                        "Failed to delete album",
+                        "Failed to delete album: " + throwable.getMessage(),
                         Toast.LENGTH_SHORT).show();
 
                 Log.e("DELETE REQ", throwable.getMessage());
