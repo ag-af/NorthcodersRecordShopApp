@@ -10,6 +10,8 @@
     <string name="back_to_main_activity">Back to Main Activity</string>
     <string name="back_to_main" />
     <string name="ic_add_album">Add New Album</string>
+    <string name="update_album" />
+    <string name="delete_album" />
 
     <string-array name="genre_array">
         <item>CLASSICAL</item>
