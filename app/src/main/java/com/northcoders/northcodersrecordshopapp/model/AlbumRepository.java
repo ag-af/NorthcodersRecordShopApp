@@ -51,7 +51,7 @@ public class AlbumRepository {
 
     public void addAlbum(Album album) {
         AlbumApiService albumApiService = RetrofitInstance.getService();
-        Call<Album> call = albumApiService.createAlbum(album);
+        Call<Album> call = albumApiService.addAlbum(album);
 
         call.enqueue(new Callback<Album>() {
             @Override
