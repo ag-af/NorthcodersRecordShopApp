@@ -22,7 +22,6 @@
         android:layout_height="match_parent"
         android:padding="16dp">
 
-
         <ImageView
             android:id="@+id/albumArtwork"
             android:layout_width="297dp"
