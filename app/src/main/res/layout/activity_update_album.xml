@@ -10,6 +10,10 @@
         <variable
             name="album"
             type="com.northcoders.northcodersrecordshopapp.model.Album" />
+
+        <variable
+            name="clickHandler"
+            type="com.northcoders.northcodersrecordshopapp.ui.updatealbum.UpdateAlbumClickHandlers" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

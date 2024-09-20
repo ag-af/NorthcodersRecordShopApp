@@ -14,6 +14,7 @@
     <string name="delete_album" />
 
     <string-array name="genre_array">
+        <item>Select a Genre</item>
         <item>CLASSICAL</item>
         <item>JAZZ</item>
         <item>BLUES</item>

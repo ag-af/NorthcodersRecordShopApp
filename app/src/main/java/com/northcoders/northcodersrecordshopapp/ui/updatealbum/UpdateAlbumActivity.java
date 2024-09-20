@@ -10,10 +10,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.northcoders.northcodersrecordshopapp.R;
 import com.northcoders.northcodersrecordshopapp.databinding.ActivityAddNewAlbumBinding;
+import com.northcoders.northcodersrecordshopapp.databinding.ActivityUpdateAlbumBinding;
 import com.northcoders.northcodersrecordshopapp.model.Album;
 import com.northcoders.northcodersrecordshopapp.model.Genre;
 import com.northcoders.northcodersrecordshopapp.ui.addalbum.AddAlbumClickHandlers;
@@ -36,7 +38,11 @@ public class UpdateAlbumActivity extends AppCompatActivity {
 
         viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
 
-        Album selectedAlbum = getIntent().getParcelableExtra("album");
+        Spinner genreSpinner = findViewById(R.id.spinnerGenre);
+//            setupGenreSpinner(album.getGenre());
+
+            ActivityUpdateAlbumBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_update_album);
+            Album selectedAlbum = getIntent().getParcelableExtra("album");
 
         if (selectedAlbum != null) {
             binding.editTitle.setText(album.getTitle());
@@ -44,24 +50,23 @@ public class UpdateAlbumActivity extends AppCompatActivity {
             binding.editReleaseYear.setText(String.valueOf(album.getReleaseYear()));
             binding.editPrice.setText(String.valueOf(album.getPrice()));
             binding.editStock.setText(String.valueOf(album.getStock()));
-
-            setupGenreSpinner(album.getGenre());
         }
+
+        UpdateAlbumClickHandlers clickHandlers = new UpdateAlbumClickHandlers(selectedAlbum, this, viewModel, genreSpinner);
+        binding.setClickHandler(clickHandlers);
+        binding.setAlbum(selectedAlbum);
+        genreSpinner.setSelection(getGenreIndex(selectedAlbum.getGenre()));
     }
 
-        private void setupGenreSpinner(Genre genre) {
-
-            Spinner spinner = binding.spinnerGenre;
+        private int getGenreIndex(Genre genre) {
             String[] genres = getResources().getStringArray(R.array.genre_array);
 
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, genres);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinner.setAdapter(adapter);
-
-            if (genre != null) {
-                int genrePosition = adapter.getPosition(genre.name());
-                spinner.setSelection(genrePosition);
+            for (int i = 0; i < genres.length; i++) {
+                if (genres[i].equalsIgnoreCase(genre.name())) {
+                    return i;
+                }
             }
+            return 0;
     }
 
     private void updateAlbum() {
