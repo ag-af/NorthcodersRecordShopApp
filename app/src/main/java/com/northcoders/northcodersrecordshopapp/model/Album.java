@@ -1,12 +1,16 @@
 package com.northcoders.northcodersrecordshopapp.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
 import com.google.gson.annotations.SerializedName;
 import com.northcoders.northcodersrecordshopapp.BR;
 
-public class Album extends BaseObservable {
+public class Album extends BaseObservable implements Parcelable {
     @SerializedName("id")
     private long id;
     @SerializedName("title")
@@ -35,6 +39,40 @@ public class Album extends BaseObservable {
 
     public Album() {
     }
+
+    protected Album(Parcel in) {
+        id = in.readLong();
+        title = in.readString();
+        artist = in.readString();
+        if (in.readByte() == 0) {
+            releaseYear = null;
+        } else {
+            releaseYear = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            price = null;
+        } else {
+            price = in.readDouble();
+        }
+        if (in.readByte() == 0) {
+            stock = null;
+        } else {
+            stock = in.readInt();
+        }
+        imageName = in.readString();
+    }
+
+    public static final Creator<Album> CREATOR = new Creator<Album>() {
+        @Override
+        public Album createFromParcel(Parcel in) {
+            return new Album(in);
+        }
+
+        @Override
+        public Album[] newArray(int size) {
+            return new Album[size];
+        }
+    };
 
     @Bindable
     public long getId() {
@@ -133,6 +171,22 @@ public class Album extends BaseObservable {
 
     public void setImageName(String imageName) {
         this.imageName = imageName;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeString(title);
+        parcel.writeString(artist);
+        parcel.writeString(genre.name());
+        parcel.writeInt(releaseYear);
+        parcel.writeDouble(price);
+        parcel.writeInt(stock);
+        parcel.writeLong(id);
     }
 }
 

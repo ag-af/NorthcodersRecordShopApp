@@ -22,11 +22,12 @@ import com.northcoders.northcodersrecordshopapp.R;
 import com.northcoders.northcodersrecordshopapp.databinding.ActivityMainBinding;
 import com.northcoders.northcodersrecordshopapp.model.Album;
 import com.northcoders.northcodersrecordshopapp.ui.addalbum.AddNewAlbumActivity;
+import com.northcoders.northcodersrecordshopapp.ui.updatealbum.UpdateAlbumActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RecyclerViewInterface {
 
     private RecyclerView recyclerView;
     private List<Album> albums;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
         binding = DataBindingUtil.setContentView(this,
                 R.layout.activity_main);
@@ -46,6 +48,11 @@ public class MainActivity extends AppCompatActivity {
 
         viewModel = new ViewModelProvider(this)
                 .get(MainActivityViewModel.class);
+
+            albumAdapter = new AlbumAdapter(viewModel.getAlbumList().getValue(), this, this);
+                RecyclerView recyclerView = findViewById(R.id.album_recycler_view);
+                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                recyclerView.setAdapter(albumAdapter);
 
         getAllAlbums();
     }
@@ -72,5 +79,12 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
 
         albumAdapter.notifyDataSetChanged();
+    }
+
+    public void onItemClick(int position) {
+        Album selectedAlbum = viewModel.getAlbumList().getValue().get(position);
+        Intent intent = new Intent(MainActivity.this, UpdateAlbumActivity.class);
+        intent.putExtra("album", selectedAlbum);
+        startActivity(intent);
     }
 }

@@ -1,5 +1,6 @@
 package com.northcoders.northcodersrecordshopapp.ui.updatealbum;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -16,6 +17,7 @@ import com.northcoders.northcodersrecordshopapp.databinding.ActivityAddNewAlbumB
 import com.northcoders.northcodersrecordshopapp.model.Album;
 import com.northcoders.northcodersrecordshopapp.model.Genre;
 import com.northcoders.northcodersrecordshopapp.ui.addalbum.AddAlbumClickHandlers;
+import com.northcoders.northcodersrecordshopapp.ui.mainactivity.MainActivity;
 import com.northcoders.northcodersrecordshopapp.ui.mainactivity.MainActivityViewModel;
 
 public class UpdateAlbumActivity extends AppCompatActivity {
@@ -73,4 +75,7 @@ public class UpdateAlbumActivity extends AppCompatActivity {
 
         viewModel.updateAlbum(album.getId(), album);
     }
+
+
+
 }

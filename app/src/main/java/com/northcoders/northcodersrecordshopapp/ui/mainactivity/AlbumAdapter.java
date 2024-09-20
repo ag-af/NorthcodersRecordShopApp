@@ -1,7 +1,9 @@
 package com.northcoders.northcodersrecordshopapp.ui.mainactivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -10,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.northcoders.northcodersrecordshopapp.R;
 import com.northcoders.northcodersrecordshopapp.databinding.AlbumItemBinding;
 import com.northcoders.northcodersrecordshopapp.model.Album;
+import com.northcoders.northcodersrecordshopapp.ui.updatealbum.UpdateAlbumActivity;
 
 import java.util.List;
 
@@ -17,18 +20,32 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHol
 
     private List<Album> albumList;
     private Context context;
+    private RecyclerViewInterface recyclerViewInterface;
 
-    public AlbumAdapter(List<Album> albumList, Context context) {
+    public AlbumAdapter(List<Album> albumList, Context context, RecyclerViewInterface recyclerViewInterface) {
         this.albumList = albumList;
         this.context = context;
+        this.recyclerViewInterface = recyclerViewInterface;
     }
 
     public static class AlbumViewHolder extends RecyclerView.ViewHolder {
         private final AlbumItemBinding albumItemBinding;
 
-        public AlbumViewHolder(AlbumItemBinding albumItemBinding) {
+        public AlbumViewHolder(AlbumItemBinding albumItemBinding, RecyclerViewInterface recyclerViewInterface) {
             super(albumItemBinding.getRoot());
             this.albumItemBinding = albumItemBinding;
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (recyclerViewInterface != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            recyclerViewInterface.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
 
@@ -37,7 +54,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHol
     public AlbumViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         AlbumItemBinding itemBinding = AlbumItemBinding.inflate(layoutInflater, parent, false);
-        return new AlbumViewHolder(itemBinding);
+        return new AlbumViewHolder(itemBinding, recyclerViewInterface);
     }
 
     @Override
