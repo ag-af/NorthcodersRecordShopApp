@@ -22,15 +22,29 @@
         android:layout_height="match_parent"
         android:padding="16dp">
 
+
+        <ImageView
+            android:id="@+id/albumArtwork"
+            android:layout_width="297dp"
+            android:layout_height="277dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.014"
+            app:srcCompat="@drawable/album_icon" />
+
         <EditText
             android:id="@+id/editTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="350dp"
             android:hint="@string/album_title"
             android:text="@={album.title}"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/editArtist"
@@ -46,11 +60,14 @@
             android:id="@+id/spinnerGenre"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/genre"
+            android:layout_marginTop="8dp"
             android:entries="@array/genre_array"
-            app:layout_constraintTop_toBottomOf="@id/editArtist"
+            android:fontFamily="sans-serif-medium"
+            android:hint="@string/genre"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/editArtist" />
 
         <EditText
             android:id="@+id/editReleaseYear"
@@ -92,21 +109,29 @@
             android:text="@string/add_album"
             android:onClick="@{clickHandler::onSubmitButtonClicked}"
             app:layout_constraintTop_toBottomOf="@id/editStock"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="16dp" />
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/floatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{clickHandler::onBackButtonClicked}"
-            android:layout_marginBottom="16dp"
-            android:layout_marginStart="16dp"
+            android:id="@+id/fabBackToMain"
+            android:layout_width="51dp"
+            android:layout_height="52dp"
+            android:layout_margin="16dp"
+            android:backgroundTint="@color/white"
             android:contentDescription="@string/back_to_main"
+            android:onClick="@{clickHandler::onBackButtonClicked}"
+            android:src="@drawable/ic_back_to_main"
+            android:textColor="@color/black"
+            app:icon="@drawable/ic_back_to_main"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.046"
             app:layout_constraintStart_toStartOf="parent"
-            android:src="@android:drawable/ic_menu_revert" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.976" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

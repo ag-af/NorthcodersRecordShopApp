@@ -36,10 +36,12 @@ public class AddAlbumClickHandlers {
         String price = binding.editPrice.getText().toString();
         String stock = binding.editStock.getText().toString();
 
+        String formattedPrice = String.format("%.2f", Double.parseDouble(price));
+        album.setPrice(formattedPrice);
+
         album.setTitle(title);
         album.setArtist(artist);
         album.setReleaseYear(releaseYear);
-        album.setPrice(price);
         album.setStock(stock);
 
         if (title == null || title.isEmpty() ||

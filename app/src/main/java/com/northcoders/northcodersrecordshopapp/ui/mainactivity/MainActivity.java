@@ -1,17 +1,24 @@
 package com.northcoders.northcodersrecordshopapp.ui.mainactivity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.northcoders.northcodersrecordshopapp.R;
 import com.northcoders.northcodersrecordshopapp.databinding.ActivityMainBinding;
 import com.northcoders.northcodersrecordshopapp.model.Album;
+import com.northcoders.northcodersrecordshopapp.ui.addalbum.AddNewAlbumActivity;
 
 import java.util.ArrayList;
 import java.util.List;

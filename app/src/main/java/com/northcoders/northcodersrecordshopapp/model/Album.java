@@ -98,7 +98,7 @@ public class Album extends BaseObservable {
         if(price == null || price == 0.0) {
             return "";
         }
-        return String.valueOf(price);
+        return String.format("%.2f", price);
     }
 
     public void setPrice(String price) {
