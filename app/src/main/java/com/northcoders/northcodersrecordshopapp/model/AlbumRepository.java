@@ -13,12 +13,10 @@ import androidx.lifecycle.MutableLiveData;
 import com.northcoders.northcodersrecordshopapp.service.AlbumApiService;
 import com.northcoders.northcodersrecordshopapp.service.RetrofitInstance;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AlbumRepository {
 
-    private List<Album> albums = new ArrayList<>();
     private MutableLiveData<List<Album>> mutableLiveData = new MutableLiveData<>();
     private Application application;
 
@@ -27,6 +25,7 @@ public class AlbumRepository {
     }
 
     public MutableLiveData<List<Album>> getMutableLiveData() {
+
         AlbumApiService albumApiService = RetrofitInstance.getService();
         Call<List<Album>> call = albumApiService.getAllAlbums();
 
@@ -50,6 +49,7 @@ public class AlbumRepository {
     }
 
     public void addAlbum(Album album) {
+
         AlbumApiService albumApiService = RetrofitInstance.getService();
         Call<Album> call = albumApiService.addAlbum(album);
 
@@ -70,10 +70,58 @@ public class AlbumRepository {
             @Override
             public void onFailure(Call<Album> call, Throwable throwable) {
                Toast.makeText(application.getApplicationContext(),
-                       "Unable to add album to the database",
+                       "Unable to add album to database",
                        Toast.LENGTH_SHORT).show();
                         Log.e("POST REQ", throwable.getMessage());
 
+            }
+        });
+    }
+
+    public void updateAlbum(long id, Album updatedAlbum) {
+
+        AlbumApiService albumApiService = RetrofitInstance.getService();
+        Call<Album> call = albumApiService.updateAlbum(id, updatedAlbum);
+
+        call.enqueue(new Callback<Album>() {
+            @Override
+            public void onResponse(Call<Album> call, Response<Album> response) {
+                Toast.makeText(application.getApplicationContext(),
+                        "Album updated successfully",
+                        Toast.LENGTH_SHORT).show();
+                }
+
+            @Override
+            public void onFailure(Call<Album> call, Throwable throwable) {
+                Toast.makeText(application.getApplicationContext(),
+                        "Failed to update album",
+                        Toast.LENGTH_SHORT).show();
+
+                Log.e("PUT REQUEST", throwable.getMessage());
+            }
+        });
+    }
+
+    public void deleteAlbum(long id) {
+
+        AlbumApiService albumApiService = RetrofitInstance.getService();
+        Call<Void> call = albumApiService.deleteAlbum(id);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Toast.makeText(application.getApplicationContext(),
+                        "Album deleted succesfully",
+                        Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable throwable) {
+                Toast.makeText(application.getApplicationContext(),
+                        "Failed to delete album",
+                        Toast.LENGTH_SHORT).show();
+
+                Log.e("DELETE REQ", throwable.getMessage());
             }
         });
     }
