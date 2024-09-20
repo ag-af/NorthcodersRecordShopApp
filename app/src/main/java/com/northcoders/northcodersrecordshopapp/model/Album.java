@@ -60,6 +60,7 @@ public class Album extends BaseObservable implements Parcelable {
             stock = in.readInt();
         }
         imageName = in.readString();
+        genre = Genre.valueOf(in.readString());
     }
 
     public static final Creator<Album> CREATOR = new Creator<Album>() {
@@ -180,13 +181,29 @@ public class Album extends BaseObservable implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeLong(id);
         parcel.writeString(title);
         parcel.writeString(artist);
+        if (releaseYear == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeInt(releaseYear);
+        }
+        if (price == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeDouble(price);
+        }
+        if (stock == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeInt(stock);
+        }
+        parcel.writeString(imageName);
         parcel.writeString(genre.name());
-        parcel.writeInt(releaseYear);
-        parcel.writeDouble(price);
-        parcel.writeInt(stock);
-        parcel.writeLong(id);
     }
 }
 
