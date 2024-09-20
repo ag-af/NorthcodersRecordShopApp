@@ -1,24 +1,13 @@
 package com.northcoders.northcodersrecordshopapp.ui.addalbum;
 
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.Spinner;
-import android.widget.Switch;
 
-import androidx.activity.EdgeToEdge;
+import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.northcoders.northcodersrecordshopapp.R;
 import com.northcoders.northcodersrecordshopapp.databinding.ActivityAddNewAlbumBinding;
-import com.northcoders.northcodersrecordshopapp.databinding.ActivityMainBinding;
 import com.northcoders.northcodersrecordshopapp.model.Album;
 import com.northcoders.northcodersrecordshopapp.ui.mainactivity.MainActivityViewModel;
 
