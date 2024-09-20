@@ -29,15 +29,16 @@ public class UpdateAlbumActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_update_album);
 
         binding = ActivityAddNewAlbumBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
 
-        album = (Album) getIntent().getSerializableExtra("album");
+        Album selectedAlbum = getIntent().getParcelableExtra("album");
 
-        if (album != null) {
+        if (selectedAlbum != null) {
             binding.editTitle.setText(album.getTitle());
             binding.editArtist.setText(album.getArtist());
             binding.editReleaseYear.setText(String.valueOf(album.getReleaseYear()));

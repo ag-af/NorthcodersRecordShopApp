@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
     public void onItemClick(int position) {
         Album selectedAlbum = viewModel.getAlbumList().getValue().get(position);
         Intent intent = new Intent(MainActivity.this, UpdateAlbumActivity.class);
-        intent.putExtra("album", selectedAlbum);
+        intent.putExtra("selected_album", selectedAlbum);
         startActivity(intent);
     }
 }
