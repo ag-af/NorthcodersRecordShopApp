@@ -27,6 +27,11 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHol
         this.recyclerViewInterface = recyclerViewInterface;
     }
 
+    public void updateAlbumList(List<Album> filteredAlbums) {
+        this.albumList = filteredAlbums;
+        notifyDataSetChanged();
+    }
+
     public static class AlbumViewHolder extends RecyclerView.ViewHolder {
         private final AlbumItemBinding albumItemBinding;
 
@@ -77,3 +82,4 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHol
         return albumList.size();
     }
 }
+

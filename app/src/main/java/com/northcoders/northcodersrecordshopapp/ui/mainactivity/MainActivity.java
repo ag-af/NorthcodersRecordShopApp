@@ -3,6 +3,7 @@ package com.northcoders.northcodersrecordshopapp.ui.mainactivity;
 import android.content.Intent;
 
 import android.os.Bundle;
+import android.widget.SearchView;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,11 +29,18 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
     private AlbumAdapter albumAdapter;
     private MainActivityViewModel viewModel;
     private ActivityMainBinding binding;
+    private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main);
+
+        searchView = findViewById(R.id.searchView);
+        recyclerView = findViewById(R.id.albumRecyclerView);
+
+        //        recyclerView = binding.albumRecyclerView;
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         binding = DataBindingUtil.setContentView(this,
                 R.layout.activity_main);
@@ -43,15 +51,39 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         MainActivityClickHandler clickHandler = new MainActivityClickHandler(this);
         binding.setClickHandler(clickHandler);
 
-        recyclerView = binding.albumRecyclerView;
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setHasFixedSize(true);
-
-
             albumAdapter = new AlbumAdapter(albums, this, this);
                 recyclerView.setAdapter(albumAdapter);
 
         getAllAlbums();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                filterAlbums(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterAlbums(newText);
+                return true;
+            }
+        });
+
+    }
+
+    public void filterAlbums(String query) {
+        List<Album> filteredAlbums = new ArrayList<>();
+
+        for (Album album : albums) {
+            if (album.getTitle().toLowerCase().contains(query.toLowerCase()) ||
+            album.getArtist().toLowerCase().contains(query.toLowerCase())) {
+                filteredAlbums.add(album);
+            }
+        }
+        if (albumAdapter != null) {
+            albumAdapter.updateAlbumList(filteredAlbums);
+        }
     }
 
     private void getAllAlbums() {
@@ -62,23 +94,17 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
                 if (albumsFromLiveData != null) {
                     albums.clear();
                     albums.addAll(albumsFromLiveData);
+                }
+                    if (albumAdapter == null) {
+                        albumAdapter = new AlbumAdapter(albums, MainActivity.this, MainActivity.this);
+                        recyclerView.setAdapter(albumAdapter);
+                    } else {
                     albumAdapter.notifyDataSetChanged();
                 }
             }
         });
     }
 
-//    private void displayInRecyclerView() {
-//
-//        recyclerView = binding.albumRecyclerView;
-//        albumAdapter = new AlbumAdapter(albums, this, this);
-//        recyclerView.setAdapter(albumAdapter);
-//
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        recyclerView.setHasFixedSize(true);
-//
-//        albumAdapter.notifyDataSetChanged();
-//    }
 
     public void onItemClick(int position) {
         Album selectedAlbum = albums.get(position);
