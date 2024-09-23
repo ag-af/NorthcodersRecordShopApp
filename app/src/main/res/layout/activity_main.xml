@@ -22,6 +22,7 @@ android:layout_height="match_parent">
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:queryHint="Search albums"
+        android:background="@drawable/search_view_background"
         app:layout_constraintBottom_toTopOf="@+id/albumRecyclerView"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
