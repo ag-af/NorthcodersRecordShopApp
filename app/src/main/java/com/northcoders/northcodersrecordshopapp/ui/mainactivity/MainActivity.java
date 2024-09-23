@@ -21,6 +21,9 @@ import com.northcoders.northcodersrecordshopapp.model.Album;
 import com.northcoders.northcodersrecordshopapp.ui.updatealbum.UpdateAlbumActivity;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements RecyclerViewInterface {
@@ -37,23 +40,22 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        searchView = findViewById(R.id.searchView);
-        recyclerView = findViewById(R.id.albumRecyclerView);
-
-        //        recyclerView = binding.albumRecyclerView;
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         binding = DataBindingUtil.setContentView(this,
                 R.layout.activity_main);
+
+        searchView = findViewById(R.id.searchView);
+
+        recyclerView = findViewById(R.id.albumRecyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        albumAdapter = new AlbumAdapter(albums, this, this);
+        recyclerView.setAdapter(albumAdapter);
 
         viewModel = new ViewModelProvider(this)
                 .get(MainActivityViewModel.class);
 
         MainActivityClickHandler clickHandler = new MainActivityClickHandler(this);
         binding.setClickHandler(clickHandler);
-
-            albumAdapter = new AlbumAdapter(albums, this, this);
-                recyclerView.setAdapter(albumAdapter);
 
         getAllAlbums();
 
@@ -70,26 +72,34 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
                 return true;
             }
         });
-
     }
 
     public void filterAlbums(String query) {
+
+        if (query.isEmpty()) {
+            albumAdapter.updateAlbumList(albums);
+            return;
+        }
+
         List<Album> filteredAlbums = new ArrayList<>();
 
-        if (!query.isEmpty()) {
+        if(!query.isEmpty()) {
+
             for (Album album : albums) {
                 if (album.getTitle().toLowerCase().contains(query.toLowerCase()) ||
-                        album.getArtist().toLowerCase().contains(query.toLowerCase())) {
+                        album.getArtist().toLowerCase().contains(query.toLowerCase()) ||
+                        String.valueOf(album.getReleaseYear()).contains(query)) {
+
                     filteredAlbums.add(album);
                 }
             }
         }
+
         if (filteredAlbums.isEmpty()) {
             Toast.makeText(this, "No data found", Toast.LENGTH_SHORT).show();
         }
             albumAdapter.updateAlbumList(filteredAlbums);
         }
-
 
     private void getAllAlbums() {
         viewModel.getAlbumList().observe(this, new Observer<List<Album>>() {
@@ -99,7 +109,14 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
                 if (albumsFromLiveData != null) {
                     albums.clear();
                     albums.addAll(albumsFromLiveData);
-                }
+
+                    Collections.sort(albums, new Comparator<Album>() {
+                        @Override
+                        public int compare(Album album1, Album album2) {
+                            return album1.getTitle().compareToIgnoreCase(album2.getTitle());
+                        }
+                    });
+
                     if (albumAdapter == null) {
                         albumAdapter = new AlbumAdapter(albums, MainActivity.this, MainActivity.this);
                         recyclerView.setAdapter(albumAdapter);
@@ -107,13 +124,17 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
                     albumAdapter.notifyDataSetChanged();
                 }
             }
+        }
         });
     }
 
 
     public void onItemClick(int position) {
-        Album selectedAlbum = albums.get(position);
+
         Intent intent = new Intent(MainActivity.this, UpdateAlbumActivity.class);
+
+        Album selectedAlbum = albums.get(position);
+
         intent.putExtra("selected_album", selectedAlbum);
         startActivity(intent);
     }
