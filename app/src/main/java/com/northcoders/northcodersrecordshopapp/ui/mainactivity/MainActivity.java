@@ -4,6 +4,7 @@ import android.content.Intent;
 
 import android.os.Bundle;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -75,16 +76,20 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
     public void filterAlbums(String query) {
         List<Album> filteredAlbums = new ArrayList<>();
 
-        for (Album album : albums) {
-            if (album.getTitle().toLowerCase().contains(query.toLowerCase()) ||
-            album.getArtist().toLowerCase().contains(query.toLowerCase())) {
-                filteredAlbums.add(album);
+        if (!query.isEmpty()) {
+            for (Album album : albums) {
+                if (album.getTitle().toLowerCase().contains(query.toLowerCase()) ||
+                        album.getArtist().toLowerCase().contains(query.toLowerCase())) {
+                    filteredAlbums.add(album);
+                }
             }
         }
-        if (albumAdapter != null) {
+        if (filteredAlbums.isEmpty()) {
+            Toast.makeText(this, "No data found", Toast.LENGTH_SHORT).show();
+        }
             albumAdapter.updateAlbumList(filteredAlbums);
         }
-    }
+
 
     private void getAllAlbums() {
         viewModel.getAlbumList().observe(this, new Observer<List<Album>>() {
