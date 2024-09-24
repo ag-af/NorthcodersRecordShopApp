@@ -138,4 +138,10 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         intent.putExtra("selected_album", selectedAlbum);
         startActivity(intent);
     }
+
+    @Override
+    public void onItemDelete(Long albumId) {
+        viewModel.deleteAlbum(albumId);
+        Toast.makeText(this, "Album deleted successfully", Toast.LENGTH_SHORT).show();
+    }
 }

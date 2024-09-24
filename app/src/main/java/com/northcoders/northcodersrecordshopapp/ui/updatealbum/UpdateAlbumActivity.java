@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -81,13 +82,34 @@ public class UpdateAlbumActivity extends AppCompatActivity {
         viewModel.updateAlbum(selectedAlbum.getId(), selectedAlbum);
         Toast.makeText(this, "Album updated successfully", Toast.LENGTH_SHORT).show();
 
-        startActivity(new Intent(UpdateAlbumActivity.this, MainActivity.class));
+        Intent intent = new Intent(UpdateAlbumActivity.this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    private void showDeleteConfirmationDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("Delete Album")
+                .setMessage("Are you sure you want to delete this album?")
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    deleteAlbum(selectedAlbum);
+                })
+                .setNegativeButton("No", (dialog, which) -> {
+                    dialog.dismiss();
+                })
+                .setCancelable(false)
+                .create()
+                .show();
     }
 
     private void deleteAlbum(Album selectedAlbum) {
         viewModel.deleteAlbum(selectedAlbum.getId());
         Toast.makeText(this, "Album deleted", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(UpdateAlbumActivity.this, MainActivity.class));
+
+        Intent intent = new Intent(UpdateAlbumActivity.this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
     }
 
 }
